@@ -13,4 +13,9 @@ public class LoginController {
     public String index() {
         return "index";
     }
+
+    @RequestMapping("/callback")
+    public String callback() {
+        return "index";
+    }
 }
