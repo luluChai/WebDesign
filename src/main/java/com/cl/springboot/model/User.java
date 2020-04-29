@@ -1,6 +1,8 @@
 package com.cl.springboot.model;
 
+import lombok.Data;
 
+@Data
 public class User {
 
   private Integer id;
@@ -9,58 +11,20 @@ public class User {
   private String token;
   private long gmtCreate;
   private long gmtModified;
+  private String bio;
+  private String avatar_url;
 
-
-  public Integer getId() {
-    return id;
+  @Override
+  public String toString() {
+    return "User{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", accountId='" + accountId + '\'' +
+            ", token='" + token + '\'' +
+            ", gmtCreate=" + gmtCreate +
+            ", gmtModified=" + gmtModified +
+            ", bio='" + bio + '\'' +
+            ", avatar_url='" + avatar_url + '\'' +
+            '}';
   }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-
-  public String getAccountId() {
-    return accountId;
-  }
-
-  public void setAccountId(String accountId) {
-    this.accountId = accountId;
-  }
-
-
-  public String getToken() {
-    return token;
-  }
-
-  public void setToken(String token) {
-    this.token = token;
-  }
-
-
-  public long getGmtCreate() {
-    return gmtCreate;
-  }
-
-  public void setGmtCreate(long gmtCreate) {
-    this.gmtCreate = gmtCreate;
-  }
-
-
-  public long getGmtModified() {
-    return gmtModified;
-  }
-
-  public void setGmtModified(long gmtModified) {
-    this.gmtModified = gmtModified;
-  }
-
 }
