@@ -2,6 +2,7 @@ package com.cl.springboot.mapper;
 
 
 
+import com.cl.springboot.model.Question;
 import com.cl.springboot.model.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -17,5 +18,9 @@ public interface UserMapper {
 
     @Select("select * from user where token= #{token}")
     User findByToken(@Param("token") String token);
+
+    @Select("select * from user where token= #{id}")
+    User findById(@Param("id") Integer id);
+
 
 }

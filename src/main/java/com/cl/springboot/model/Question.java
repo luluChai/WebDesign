@@ -16,19 +16,5 @@ public class Question {
   private Integer likeCount;
   private String tag;
 
-  @Override
-  public String toString() {
-    return "Question{" +
-            "id=" + id +
-            ", title='" + title + '\'' +
-            ", description='" + description + '\'' +
-            ", gmtCreate=" + gmtCreate +
-            ", gmtModified=" + gmtModified +
-            ", creator=" + creator +
-            ", commonCount=" + commonCount +
-            ", viewCount=" + viewCount +
-            ", likeCount=" + likeCount +
-            ", tag='" + tag + '\'' +
-            '}';
-  }
+
 }
