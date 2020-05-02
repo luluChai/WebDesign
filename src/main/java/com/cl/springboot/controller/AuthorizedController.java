@@ -41,6 +41,7 @@ public class AuthorizedController {
                            HttpServletResponse response) {
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setCode(code);
+        accessTokenDTO.setState(state);
         accessTokenDTO.setRedirect_uri(clientUri);
         accessTokenDTO.setClient_id(clientId);
         accessTokenDTO.setClient_secret(clientSecret);
@@ -55,7 +56,7 @@ public class AuthorizedController {
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
             user.setBio(user.getBio());
-            user.setAvatar_url(user.getAvatar_url());
+            user.setAvatarUrl(user.getAvatarUrl());
             userMapper.insert(user);
             response.addCookie(new Cookie("token",token));
             request.getSession().setAttribute("user",githubUser);

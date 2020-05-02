@@ -25,7 +25,6 @@ public class PublicController {
 
     @GetMapping("/public")
     public String publish() {
-        System.out.println("getmapping---public");
         return "public";
     }
 
@@ -68,7 +67,6 @@ public class PublicController {
             model.addAttribute("error", "用户未登录~");
             return "public";
         }
-        System.out.println("postmapping---public user是否为空 执行啦 ");
         Question question = new Question();
         question.setTitle(title);
         question.setDescription(description);
@@ -77,7 +75,6 @@ public class PublicController {
         question.setGmtCreate(System.currentTimeMillis());
         question.setGmtModified(question.getGmtCreate());
         questionMapper.create(question);
-        System.out.println("所以发布成功了吗？");
         return "redirect:/";
     }
 }
