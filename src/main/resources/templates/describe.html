@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet"/>
+    <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.css}" rel="stylesheet"/>
+    <script th:src="@{/webjars/jquery/3.5.0/jquery.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/community.css">
+    <title>问题详情</title>
+
+</head>
+<body>
+<div th:replace="common/topbar::copy"></div>
+<div class="container-fluid main profile">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12">
+            <div>
+                <h4 th:text="${question.title}"></h4>
+                <hr>
+                作者: <span th:text="${question.creator}"></span>
+                浏览量： <span th:text="${question.viewCount}"></span>
+                点赞量： <span th:text="${question.likeCount}"></span>
+                发布时间： <span th:text="${question.gmtCreate}"></span>
+            </div>
+            <hr>
+            <form action="/comment" method="post" id="submitForm">
+                <div class="media-body">
+                    <label for="content">输入评论</label>
+                    <textarea name="content" id="content" class="form-control" cols="30" rows="3"></textarea>
+                    <br>
+                    <button type="submit" class="btn btn-success btn-submit">发送</button>
+                </div>
+            </form>
+
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div class="list-group section">
+                <a href="#" class="list-group-item">
+                    我的问题<span class="badge">6</span>
+                </a>
+                <a href="#" class="list-group-item">
+                    最新回复<span class="badge">11</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

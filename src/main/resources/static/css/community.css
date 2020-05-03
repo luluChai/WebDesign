@@ -1,7 +1,7 @@
 body {
     background: #efefef;
 }
-.main {
+.main{
     margin: 30px;
     background: #ffffff;
     border-radius: 10px;
@@ -19,3 +19,7 @@ body {
     font-weight: normal;
     color: #999;
 }
+.profile .section {
+    margin-top: 15px;
+}
+

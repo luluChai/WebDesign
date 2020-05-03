@@ -4,20 +4,19 @@
     <meta charset="UTF-8">
     <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet"/>
     <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.css}" rel="stylesheet"/>
-    <script th:src="@{/webjars/jquery/3.5.0/jquery.js}" ></script>
+    <script th:src="@{/webjars/jquery/3.5.0/jquery.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}" type="application/javascript"></script>
-    <link rel="stylesheet" href="./css/community.css">
-    <title>古风社区</title>
+    <link rel="stylesheet" href="/css/community.css">
+    <title th:text="${sectionName}"></title>
 
 </head>
 <body>
 <div th:replace="common/topbar::copy"></div>
-<div class="container-fluid main">
+<div class="container-fluid main profile">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12">
-            <h2><span class="glyphicon glyphicon-list">话题</span></h2>
-            <hr/>
-
+            <h2><span th:text="${sectionName}"></span></h2>
+            <hr>
             <div class="media" th:each="question:${questions}">
                 <div class="media-left">
                     <a href="#">
@@ -25,10 +24,8 @@
                     </a>
                 </div>
                 <div class="media-body">
-                    <a th:href="@{/describe/}+${question.id}">
-                        <h4 class="media-heading" th:text="${question.title}"></h4>
-                    </a>
-                    <span th:text="${question.description}"  href="/describe" ></span>
+                    <h4 class="media-heading" th:text="${question.title}"></h4>
+                    <span th:text="${question.description}"></span>
                     <br>
                     <span class="text-desc">
                         <span th:text="${question.commonCount}"></span>*评论
@@ -41,7 +38,16 @@
 
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <h4>热门话题</h4>
+            <div class="list-group section">
+                <a href="/profile/questions"
+                   th:class="${section == 'questions'? 'active list-group-item':'list-group-item'}">
+                    我的问题<span class="badge">11</span>
+                </a>
+                <a href="/profile/replies"
+                   th:class="${section == 'replies'? 'active list-group-item':'list-group-item'}">
+                    最新回复<span class="badge">11</span>
+                </a>
+            </div>
         </div>
     </div>
 </div>
