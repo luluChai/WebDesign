@@ -23,9 +23,9 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left">
+            <form class="navbar-form navbar-left" th:action="@{/search}" method="post">
                 <div class="form-group">
-                    <input type="text" class="form-control searcher-text" placeholder="搜索问题">
+                    <input type="text" name="search" class="form-control searcher-text" placeholder="搜索问题">
                 </div>
                 <button type="submit" class="btn btn-default">搜索</button>
             </form>
