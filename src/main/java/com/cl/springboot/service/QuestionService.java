@@ -43,4 +43,16 @@ public class QuestionService {
         questionDTO.setUser(user);
         return questionDTO;
     }
+
+    public void addRead(Integer id) {
+        Question question = questionMapper.getById(id);
+        question.setViewCount(question.getViewCount()==null?1:question.getViewCount()+1);
+        questionMapper.addRead(question);
+    }
+
+    public void getLike(Integer id) {
+        Question question = questionMapper.getById(id);
+        question.setLikeCount(question.getLikeCount()==null?0:question.getLikeCount()+1);
+        questionMapper.updateLike(question);
+    }
 }

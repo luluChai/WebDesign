@@ -9,8 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -18,6 +18,7 @@ public class ProfileController {
 
     @Autowired
     private QuestionService questionService;
+
 
     @GetMapping("/profile/{action}")
     public String profile (@PathVariable(name = "action")String action, Model model,HttpServletRequest request) {
@@ -34,8 +35,15 @@ public class ProfileController {
             model.addAttribute("section","replies");
             model.addAttribute("sectionName","最新回复");
         }
-        List<QuestionDTO> questionList = questionService.list();
-        model.addAttribute("questions", questionList);
+        List<QuestionDTO> allQuestions= questionService.list();
+        ArrayList<QuestionDTO> questionList = new ArrayList<>();
+        Integer userId = ((User) request.getSession().getAttribute("user")).getId();
+        for (QuestionDTO question:allQuestions) {
+            if (userId.equals(question.getCreator())) {
+                questionList.add(question);
+                model.addAttribute("question", questionList);
+            }
+        }
         return "profile";
     }
 }

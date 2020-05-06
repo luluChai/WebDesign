@@ -10,5 +10,5 @@ public class Comment {
   private long gmtCreate;
   private long gmtModified;
   private Integer creator;
-
+  private Integer questionId;
 }

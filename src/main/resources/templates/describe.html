@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet"/>
     <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.css}" rel="stylesheet"/>
-    <script th:src="@{/webjars/jquery/3.5.0/jquery.js}"></script>
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}" type="application/javascript"></script>
-    <link rel="stylesheet" href="/css/community.css">
+    <link rel="stylesheet" href="/community.css">
     <title>问题详情</title>
+    <script src="/Comment.js"></script>
 
 </head>
 <body>
@@ -15,23 +16,45 @@
 <div class="container-fluid main profile">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12">
+
             <div>
                 <h4 th:text="${question.title}"></h4>
                 <hr>
-                作者: <span th:text="${question.creator}"></span>
-                浏览量： <span th:text="${question.viewCount}"></span>
-                点赞量： <span th:text="${question.likeCount}"></span>
-                发布时间： <span th:text="${question.gmtCreate}"></span>
+                作者: <span th:text="${question.user.getName()}"></span>
+                | 发布时间： <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
+                | 阅读数: <span th:text="${question.viewCount}"></span>
             </div>
             <hr>
-            <form action="/comment" method="post" id="submitForm">
-                <div class="media-body">
-                    <label for="content">输入评论</label>
-                    <textarea name="content" id="content" class="form-control" cols="30" rows="3"></textarea>
-                    <br>
-                    <button type="submit" class="btn btn-success btn-submit">发送</button>
+            <div th:text="${question.description}"></div>
+            <hr>
+            <div class="operate">
+                <div class="glyphicon glyphicon-edit"><a
+                        th:href="@{/edit/}+${id}"><span>编辑</span></a></div>
+                <div class="glyphicon glyphicon-thumbs-up"><a th:href="@{/like/}+${question.id}"><span>喜欢</span></a>
                 </div>
-            </form>
+                <div class="glyphicon glyphicon-star-empty"><a href="#"><span>收藏</span></a></div>
+                <div class="glyphicon glyphicon-pencil"><a href="#content"><span>添加评论</span></a></div>
+            </div>
+            <hr>
+            <div>
+                <h4>全部评论</h4>
+                <div class="media" th:each="comment:${comments}">
+                    <div class="media-body">
+                        <span th:text="${comment.user.getName()}"></span>:<br>
+                        <span th:text="${comment.content}"></span>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="media-body">
+                <label for="comment_content">输入评论</label>
+                <input type="hidden" id="question_id" th:value="${question.id}">
+                <textarea name="content" id="comment_content" class="form-control" cols="30" rows="3"></textarea>
+                <br>
+                <button th:attr="sub_uri=@{/comment/}+${question.id}" type="submit"
+                        class="btn btn-success btn-submit save_btn" onclick="post()">发送
+                </button>
+            </div>
 
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">

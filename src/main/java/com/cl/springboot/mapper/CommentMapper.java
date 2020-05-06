@@ -12,9 +12,12 @@ import java.util.List;
 @Repository
 public interface CommentMapper {
 
-    @Insert("insert into comment(content,gmt_create,gmt_modified,creator) values(#{content},#{gmtCreate},#{gmtModified},#{creator})")
+    @Insert("insert into comment(content,gmt_create,gmt_modified,creator,question_id) values(#{content},#{gmtCreate},#{gmtModified},#{creator},#{questionId})")
     void create(Comment comment);
 
     @Select("select * from comment")
-    List<Comment> getAllList();
+    List<Comment> getList();
+
+    @Select("select * from comment where question_id = #{id}")
+    List<Comment> getListById(Integer id);
 }

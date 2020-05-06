@@ -58,6 +58,9 @@ public class PublicController {
         question.setCreator(user.getId());
         question.setGmtCreate(System.currentTimeMillis());
         question.setGmtModified(question.getGmtCreate());
+        question.setLikeCount(0);
+        question.setViewCount(0);
+        question.setCommonCount(0);
         questionMapper.create(question);
         return "redirect:/";
     }

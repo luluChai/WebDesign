@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet"/>
     <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.css}" rel="stylesheet"/>
-    <script th:src="@{/webjars/jquery/3.5.0/jquery.js}"></script>
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}" type="application/javascript"></script>
-    <link rel="stylesheet" href="/css/community.css">
+    <link rel="stylesheet" href="/community.css">
     <title th:text="${sectionName}"></title>
 
 </head>
@@ -14,10 +14,10 @@
 <div th:replace="common/topbar::copy"></div>
 <div class="container-fluid main profile">
     <div class="row">
-        <div class="col-lg-9 col-md-12 col-sm-12">
+        <div class="col-lg-9 col-md-12 col-sm-12" th:if="${question != null}" >
             <h2><span th:text="${sectionName}"></span></h2>
             <hr>
-            <div class="media" th:each="question:${questions}">
+            <div class="media"th:each="question:${question}">
                 <div class="media-left">
                     <a href="#">
                         <img class="media-object img-rounded" th:src="${question.user.avatarUrl}">
@@ -36,6 +36,9 @@
                 </div>
             </div>
 
+        </div>
+        <div class="col-lg-9 col-md-12 col-sm-12" th:if="${question == null}">
+            <h4 class="glyphicon glyphicon-send">你还没有发布话题哦~</h4>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <div class="list-group section">

@@ -4,46 +4,44 @@
     <meta charset="UTF-8">
     <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet"/>
     <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.css}" rel="stylesheet"/>
-    <script th:src="@{/webjars/jquery/3.5.0/jquery.js}" ></script>
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}" type="application/javascript"></script>
-    <link rel="stylesheet" href="./css/community.css">
+    <link rel="stylesheet" href="/community.css">
     <title>古风社区</title>
-
 </head>
 <body>
-<div th:replace="common/topbar::copy"></div>
+<div th:insert="common/topbar::copy"></div>
 <div class="container-fluid main">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12">
-            <h2><span class="glyphicon glyphicon-list">话题</span></h2>
-            <hr/>
-
+            <h2 class="glyphicon glyphicon-list">话题</h2><hr>
             <div class="media" th:each="question:${questions}">
-                <div class="media-left">
+                <div class="media-left media-middle" >
                     <a href="#">
-                        <img class="media-object img-rounded" th:src="${question.user.avatarUrl}">
+                        <img class="media-object">
                     </a>
                 </div>
                 <div class="media-body">
-                    <a th:href="@{/describe/}+${question.id}">
-                        <h4 class="media-heading" th:text="${question.title}"></h4>
-                    </a>
-                    <span th:text="${question.description}"  href="/describe" ></span>
-                    <br>
-                    <span class="text-desc">
-                        <span th:text="${question.commonCount}"></span>*评论
-                        <span th:text=" ${question.viewCount}"></span> *浏览
-                        <span th:text=" ${question.likeCount}"></span> *点赞
-                        <span th:text=" ${#dates.format(question.getGmtCreate(),'yyyy-MM-dd HH:mm')}"></span> *发布
+                    <a th:href="@{/describe/}+${question.id}"> <h4 th:text="${question.title}"></h4></a>
+                    <span th:text="${question.description}"></span><br>
+                    <span>
+                        <span th:text="${question.commonCount}"></span>个评论
+                        <span th:text="${question.likeCount}"></span>个赞
+                        <span th:text="${question.viewCount}"></span>次阅读数
                     </span>
                 </div>
             </div>
-
         </div>
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <h4>热门话题</h4>
+        <div class="col-lg-3 col-md-12 col-sm-12">
+            <h2 class="glyphicon glyphicon-fire">热门推荐</h2><hr>
+            <div class="media"th:each="question:${questions}">
+                <div class="media-body">
+                    <a class="glyphicon glyphicon-leaf" th:text="${question.title}" th:href="@{/describe/}+${question.id}"></a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
 </body>
 </html>

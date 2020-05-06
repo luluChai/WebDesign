@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet"/>
     <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.css}" rel="stylesheet"/>
-    <script th:src="@{/webjars/jquery/3.5.0/jquery.js}" ></script>
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
     <script th:href="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}" type="application/javascript"></script>
-    <link rel="stylesheet" href="./css/community.css">
+    <link rel="stylesheet" href="/community.css">
     <title>发布</title>
 </head>
 <body>
@@ -14,28 +14,37 @@
 <div class="container-fluid main">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12">
-            <h4><span class="glyphicon glyphicon-plus">发起</span></h4>
+            <h2><span class="glyphicon glyphicon-plus" th:if="${queryQuestion == null}">发起</span></h2>
+            <h4><span class="glyphicon glyphicon-pencil" th:if="${queryQuestion != null}">编辑</span></h4>
             <hr/>
             <form action="/public" method="post">
                 <div class="form-group">
                     <label for="title">问题标题（简明扼要）</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="问题标题......"
-                           th:value="${title}">
+                           th:value="${title}" th:if="${queryQuestion ==null}">
+                    <input type="text" class="form-control" id="title_x" name="title" placeholder="问题标题......"
+                           th:value="${queryQuestion.title}" th:if="${queryQuestion !=null}">
                 </div>
                 <div class="form-group">
                     <label for="description">问题补充（必填，请参照右侧提示：）</label>
                     <textarea name="description" id="description" class="form-control" cols="30" rows="10"
-                              th:text="${description}"></textarea>
+                              th:text="${description}" th:if="${queryQuestion ==null}"></textarea>
+                    <textarea name="description" class="form-control" cols="30" rows="10"
+                              th:text="${queryQuestion.description}" th:if="${queryQuestion !=null}"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="tag">添加标签</label>
                     <input type="text" class="form-control" id="tag" name="tag" th:value="${tag}"
-                           placeholder="输入标签，以逗号分隔......">
+                           placeholder="输入标签，以逗号分隔......" th:if="${queryQuestion ==null}">
+                    <input type="text" class="form-control" id="tag_x" name="tag" th:value="${queryQuestion.tag}"
+                           placeholder="输入标签，以逗号分隔......" th:if="${queryQuestion !=null}">
+
                 </div>
                 <div class="container-fluid main">
                     <div class="row">
                         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-danger" th:text="${error}" th:if="${error != null}"></div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-danger" th:text="${error}"
+                                 th:if="${error != null}"></div>
                         </div>
                         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                             <button type="submit" class="btn btn-success btn-publish">发布</button>
@@ -46,10 +55,10 @@
             </form>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <h3>问题发起指南</h3>
-            <b>.问题标题：</b> 请用精简的语言描述您发布的问题，不超过25个字<br>
-            <b>.问题补充：</b>详细补充您的问题内容，病确保问题描述清晰直观，并提供一些相关的资料<br>
-            <b>.选择标签：</b> 选择一个或者多个合适的标签，用逗号隔开，每个标签不超过10个字<br>
+            <h2>问题发起指南</h2>
+            <span class="glyphicon glyphicon-apple text-question">问题标题： 请用精简的语言描述您发布的问题，不超过25个字<br></span>
+            <span class="glyphicon glyphicon-apple text-question">问题补充：详细补充您的问题内容，病确保问题描述清晰直观，并提供一些相关的资料<br></span>
+            <span class="glyphicon glyphicon-apple text-question">选择标签： 选择一个或者多个合适的标签，用逗号隔开，每个标签不超过10个字<br></span>
         </div>
     </div>
 </div>
