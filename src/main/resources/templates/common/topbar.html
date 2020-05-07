@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet"/>
     <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.css}" rel="stylesheet"/>
-    <script th:src="@{/webjars/jquery/3.4.1/jquery.js}" ></script>
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}" type="application/javascript"></script>
     <link rel="stylesheet" href="/community.css">
     <title>topbar</title>
@@ -33,6 +33,9 @@
                 <li th:if="${session.user != null}">
                     <a href="/public">发布</a>
                 </li>
+                <li th:if="${session.user2 != null}">
+                    <a href="/public">发布</a>
+                </li>
                 <li class="dropdown" th:if="${session.user != null}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">
@@ -44,9 +47,22 @@
                         <li><a href="#">退出登录</a></li>
                     </ul>
                 </li>
+                <li class="dropdown" th:if="${session.user2 != null}">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <span th:text="${session.user2.getUsername()}"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/profile/questions">我的发布</a></li>
+                        <li><a th:href="@{/login}">退出登录</a></li>
+                    </ul>
+                </li>
                 <li th:if="${session.user==null}">
-                    <a th:href="@{/login}">登录</a>
-<!--                    <a href="https://github.com/login/oauth/authorize?client_id=0d443973d6e3897c8b6f&redirect_uri=http://localhost:8887/callback&scope=user&state=1">登录</a>-->
+                <span th:if="${session.user2==null}">
+                    <a th:href="@{/index}">登录</a>
+                    <!--<a href="https://github.com/login/oauth/authorize?client_id=0d443973d6e3897c8b6f&redirect_uri=http://localhost:8887/callback&scope=user&state=1">登录</a>-->
+                </span>
                 </li>
             </ul>
         </div>

@@ -1,5 +1,6 @@
 package com.cl.springboot.mapper;
 
+import com.cl.springboot.dto.QuestionDTO;
 import com.cl.springboot.model.Question;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
@@ -30,4 +31,7 @@ public interface QuestionMapper {
 
     @Delete("delete from question where id =#{id}")
     void deleteById(Integer id);
+
+    @Update("update question set title=#{title},description=#{description},gmt_create=#{gmtCreate},gmt_modified=#{gmtModified},tag=#{tag} where id =#{id}")
+    void updateQuestion(QuestionDTO question);
 }

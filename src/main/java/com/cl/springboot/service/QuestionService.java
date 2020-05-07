@@ -65,4 +65,8 @@ public class QuestionService {
     public void deleteById(Integer id) {
         questionMapper.deleteById(id);
     }
+
+    public void editOk(QuestionDTO questionDTO) {
+        questionMapper.updateQuestion(questionDTO);
+    }
 }

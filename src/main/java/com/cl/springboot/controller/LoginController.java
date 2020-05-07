@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
@@ -24,14 +26,16 @@ public class LoginController {
     @PostMapping("/user/login")
     public String login(@RequestParam(name = "username") String username,
                         @RequestParam(name = "password") String password ,
-                        Model model) {
+                        Model model,
+                        HttpServletRequest request) {
         List<User2> list = user2Mapper.list();
-        for (User2 user2:list) {
-            if (user2.getUsername().equals(username)&&user2.getPassword().equals(password)) {
-                User2 users = new User2();
-                users.setPassword(password);
-                users.setUsername(username);
-                model.addAttribute("users",users);
+        for (User2 user:list) {
+            if (user.getUsername().equals(username)&&user.getPassword().equals(password)) {
+                User2 user2 = new User2();
+                user2.setPassword(password);
+                user2.setUsername(username);
+                model.addAttribute("user2",user2);
+                request.getSession().setAttribute("user2",user2);
                 return "redirect:/";
             }
         }
