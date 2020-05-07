@@ -21,7 +21,7 @@ import java.util.List;
 public class CommentController {
 
     @Autowired
-    private CommentService commentService;
+    private QuestionService questionService;
     @Autowired
     private CommentMapper commentMapper;
 
@@ -29,10 +29,12 @@ public class CommentController {
     @GetMapping("/comment/{id}")
     public String comment(@PathVariable(value = "id") Integer id,
                           @RequestParam(value = "content") String content,
-                          HttpServletRequest request) {
+                          HttpServletRequest request,
+                          Model model) {
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
-            return "index";
+            model.addAttribute("error","登录后才可以发表评论哦~");
+            return "error";
         }
         Comment comment = new Comment();
         comment.setContent(content);
@@ -41,6 +43,7 @@ public class CommentController {
         comment.setCreator(user.getId());
         comment.setQuestionId(id);
         commentMapper.create(comment);
+        questionService.addCommentCount(id);
         return "redirect:/";
     }
 }

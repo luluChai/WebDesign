@@ -13,27 +13,22 @@
 <div th:insert="common/topbar::copy"></div>
 <div class="container-fluid main">
     <div class="row">
-        <div class="col-lg-9 col-md-12 col-sm-12">
+        <div class="col-lg-9 col-md-12 col-sm-12 lg-9-css">
             <h2 class="glyphicon glyphicon-list">话题</h2><hr>
             <div class="media" th:each="question:${questions}">
-                <div class="media-left media-middle" >
-                    <a href="#">
-                        <img class="media-object">
-                    </a>
-                </div>
                 <div class="media-body">
                     <a th:href="@{/describe/}+${question.id}"> <h4 th:text="${question.title}"></h4></a>
                     <span th:text="${question.description}"></span><br>
                     Tags:<span th:text="${question.tag}"></span><br>
                     <span>
-                        <span th:text="${question.commonCount}"></span>个评论
+                        <span th:text="${question.commentCount}"></span>个评论
                         <span th:text="${question.likeCount}"></span>个赞
                         <span th:text="${question.viewCount}"></span>次阅读数
                     </span>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-12 col-sm-12">
+        <div class="col-lg-3 col-md-12 col-sm-12 lg-3-css">
             <h2 class="glyphicon glyphicon-fire">热门推荐</h2><hr>
             <div class="media"th:each="question:${questions}">
                 <div class="media-body">

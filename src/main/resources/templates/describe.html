@@ -6,8 +6,8 @@
     <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.css}" rel="stylesheet"/>
     <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}" type="application/javascript"></script>
+    <link rel="stylesheet" href="/community.css">
     <title>问题详情</title>
-    <script src="/Comment.js"></script>
 
 </head>
 <body>
@@ -27,19 +27,25 @@
             <div th:text="${question.description}"></div>
             <hr>
             <div class="operate">
-                <div class="glyphicon glyphicon-edit"><a
-                        th:href="@{/edit/}+${id}"><span>编辑</span></a></div>
-                <div class="glyphicon glyphicon-thumbs-up"><a th:href="@{/like/}+${question.id}"><span>喜欢</span></a>
+                <div th:if="${session.user != null}">
+                    <div class="glyphicon glyphicon-edit" th:if="${question.getCreator() == session.user.id}"><a
+                            th:href="@{/delete/}+${id}"><span>删除</span></a>
+                    </div>
+                    <div class="glyphicon glyphicon-edit" th:if="${question.getCreator() == session.user.id}"><a
+                            th:href="@{/edit/}+${id}"><span>编辑</span></a>
+                    </div>
+                    <div class="glyphicon glyphicon-thumbs-up"><a th:href="@{/like/}+${question.id}"><span>点赞</span></a>
+                    </div>
+                    <div class="glyphicon glyphicon-star-empty"><a th:href="@{/collection/}+${id}"><span>收藏</span></a></div>
+                    <div class="glyphicon glyphicon-pencil"><a href="#content"><span>添加评论</span></a></div>
                 </div>
-                <div class="glyphicon glyphicon-star-empty"><a href="#"><span>收藏</span></a></div>
-                <div class="glyphicon glyphicon-pencil"><a href="#content"><span>添加评论</span></a></div>
             </div>
             <hr>
             <div>
                 <h4>全部评论</h4>
                 <div class="media" th:each="comment:${comments}">
                     <div class="media-body">
-                        <span th:text="${comment.user.getName()}"></span>:<br>
+                        <b th:text="${comment.user.getName()}"></b>:
                         <span th:text="${comment.content}"></span>
                         <hr>
                     </div>
@@ -51,7 +57,7 @@
                     <textarea name="content" id="content" class="form-control" cols="30" rows="3"></textarea>
                     <br>
                     <button type="submit"
-                       class="btn btn-success btn-submit">发送
+                            class="btn btn-success btn-submit">发送
                     </button>
                 </form>
 

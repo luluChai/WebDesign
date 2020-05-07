@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface QuestionMapper {
 
-    @Insert("insert into question (title,description,gmt_create,gmt_modified,creator,common_count,view_count,like_count,tag) values (#{title},#{description},#{gmtCreate},#{gmtModified},#{creator},#{commonCount},#{viewCount},#{likeCount},#{tag})")
+    @Insert("insert into question (title,description,gmt_create,gmt_modified,creator,comment_count,view_count,like_count,tag) values (#{title},#{description},#{gmtCreate},#{gmtModified},#{creator},#{commentCount},#{viewCount},#{likeCount},#{tag})")
     void create(Question question);
 
     @Select("select * from question")
@@ -23,5 +23,11 @@ public interface QuestionMapper {
     void addRead(Question question);
 
     @Update("update question set like_count = #{likeCount} where id = #{id}")
-    void updateLike(Question question);
+    void addLike(Question question);
+
+    @Update("update question set comment_count = #{commentCount} where id = #{id}")
+    void addComment(Question question);
+
+    @Delete("delete from question where id =#{id}")
+    void deleteById(Integer id);
 }
