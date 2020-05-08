@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet"/>
+    <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.css}" rel="stylesheet"/>
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}" type="application/javascript"></script>
+    <link rel="stylesheet" href="/community.css">
+    <title>古风社区</title>
+</head>
+<body>
+<div th:insert="common/topbar::copy"></div>
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 lg-9-css">
+            <table class="table table-hover">
+                <tr class="active">
+                    <td>问题ID</td>
+                    <td>问题标题</td>
+                    <!--                <td>问题内容</td>-->
+                    <td>问题标签</td>
+                    <td>创建日期</td>
+                    <td>修改日期</td>
+                    <td>创作者ID</td>
+                    <td>创作者</td>
+                    <td>创作者签名</td>
+                    <td>操作</td>
+                </tr>
+                <tr th:each="question:${questions}" class="info">
+                    <td th:text="${question.id}"></td>
+                    <td th:text="${question.title}"></td>
+                    <!--                <td th:text="${question.description}"></td>-->
+                    <td th:text="${question.tag}"></td>
+                    <td th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${#dates.format(question.gmtModified,'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${question.creator}"></td>
+                    <td th:text="${question.user.getName()}"></td>
+                    <td th:text="${question.user.getBio()}"></td>
+                    <td>
+                        <button class="btn btn-danger"><a th:href="@{/delete/}+${question.id}">删除</a></button>
+                        <button class="btn btn-success"><a th:href="@{/edit/}+${question.id}">编辑</a></button>
+                    </td>
+                </tr>
+            </table>
+            <table class="table table-hover">
+                <tr class="active">
+                    <td>用户ID</td>
+                    <td>用户名</td>
+                </tr>
+                <tr th:each="user:${users}" class="success" >
+                    <td th:text="${user.getId()}"></td>
+                    <td th:text="${user.getName()}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

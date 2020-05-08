@@ -8,6 +8,7 @@
     <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}" type="application/javascript"></script>
     <link rel="stylesheet" href="/community.css">
     <title>问题详情</title>
+    <script src="/Comment.js"></script>
 
 </head>
 <body>
@@ -44,25 +45,26 @@
             <hr>
             <div>
                 <h4>全部评论</h4>
-                <span th:each="comment:${comments}">
+                <div th:each="comment:${comments}">
                     <b th:text="${comment.user.getName()}" th:data="${comment.id}"></b>:
-                    <a th:href="@{/answer/}+${comment.id}"><span th:text="${comment.content}"></span></a>
-                    <div class="col-lg-12 col-md-12 col-sm-12 collapse in">
-                    二级评论
-                     </div>
+                    <span th:text="${comment.content}" th:data-id="${comment.id}"
+                          onclick="collapseComments(this)"></span>
+                    <div class="col-lg-12 col-md-12 col-sm-12 collapse" th:id="${'comment-'+comment.id}">
+                        <form th:action="@{/comment/}+${question.id}">
+                            <textarea name="content" class="form-control" cols="10" rows="1"></textarea><br>
+                            <button type="submit" class="btn btn-success btn-submit">发送</button>
+                        </form>
+                    </div>
                     <hr>
-                </span> <hr>
+                </div>
+                <hr>
             </div>
             <div class="media-body" th:each="question:${question}">
                 <form th:action="@{/comment/}+${question.id}">
                     <label for="content">输入评论</label>
-                    <textarea name="content" id="content" class="form-control" cols="30" rows="3"></textarea>
-                    <br>
-                    <button type="submit"
-                            class="btn btn-success btn-submit">发送
-                    </button>
+                    <textarea name="content" id="content" class="form-control" cols="30" rows="3"></textarea><br>
+                    <button type="submit" class="btn btn-success btn-submit">发送</button>
                 </form>
-
             </div>
 
         </div>

@@ -24,6 +24,7 @@
                         <span th:text="${question.commentCount}"></span>个评论
                         <span th:text="${question.likeCount}"></span>个赞
                         <span th:text="${question.viewCount}"></span>次阅读数
+                        <span th:text="${#dates.format(question.getGmtCreate(),'yyyy-MM-dd HH:mm')}"></span>发布
                     </span>
                 </div>
             </div>
